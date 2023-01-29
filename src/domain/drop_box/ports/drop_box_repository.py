@@ -15,3 +15,6 @@ class DropBoxRepository(ABC):
     async def find(self, *, filters: FindFilters) -> list[DropBox]:
         pass
 
+    @abstractmethod
+    async def save(self, *, drop_box: DropBox) -> None:
+        pass

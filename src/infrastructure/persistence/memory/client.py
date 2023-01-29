@@ -1,5 +1,5 @@
 from domain.drop_box.entities.drop_box import DropBox
-from uuid import uuid4
+from uuid import uuid4, UUID
 
 
 class SingletonMeta(type):
@@ -17,11 +17,11 @@ class SingletonMeta(type):
 
 
 class MemoryPersistenceClient(metaclass=SingletonMeta):
-    drop_boxes: list[DropBox] = []
+    drop_boxes_dict: dict[UUID, DropBox] = {}
     drop_box_items = []
     delivery_requests = []
 
     def __init__(self):
         for item in range(0,100):
             drop_box = DropBox(uuid=uuid4(), name=f"Drop Box {item}", location=f"Sim #{item}")
-            self.drop_boxes.append(drop_box)
+            self.drop_boxes_dict[drop_box.uuid] = drop_box
